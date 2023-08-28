@@ -18,8 +18,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.TemporalType.TIMESTAMP;
-import static jakarta.persistence.GenerationType.AUTO;
 
 @Entity
 @AllArgsConstructor
@@ -30,7 +30,7 @@ import static jakarta.persistence.GenerationType.AUTO;
 
 public class Category {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @NotBlank (message = "Name is mandatory")

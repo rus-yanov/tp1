@@ -19,7 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.AUTO;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
 @Entity
@@ -31,7 +31,7 @@ import static jakarta.persistence.TemporalType.TIMESTAMP;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @Column(unique = true)

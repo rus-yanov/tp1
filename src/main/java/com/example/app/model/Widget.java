@@ -19,7 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 import java.util.List;
 
-import static jakarta.persistence.GenerationType.AUTO;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 
 @Entity
@@ -30,7 +30,7 @@ import static jakarta.persistence.TemporalType.TIMESTAMP;
 @AllArgsConstructor
 public class Widget {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @NotBlank (message = "Name is mandatory")
@@ -46,7 +46,7 @@ public class Widget {
             mappedBy = "widgets")
     private List<Page> pages;
 
-    public Page(final Long id) {
+    public Widget(final Long id) {
         this.id = id;
     }
 }

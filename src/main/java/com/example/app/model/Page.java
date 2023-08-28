@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Set;
 
-import static jakarta.persistence.GenerationType.AUTO;
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.TemporalType.TIMESTAMP;
 import static org.hibernate.annotations.FetchMode.JOIN;
 
@@ -34,7 +34,7 @@ import static org.hibernate.annotations.FetchMode.JOIN;
 
 public class Page {
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -52,4 +52,8 @@ public class Page {
     @ManyToMany
     @Fetch(JOIN)
     private Set<Category> categories;
+
+    @ManyToMany
+    @Fetch(JOIN)
+    private Set<Widget> widgets;
 }
