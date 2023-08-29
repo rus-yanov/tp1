@@ -18,7 +18,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public User getUserById(long id) {
         return userRepository.findById(id)
@@ -29,7 +29,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    /*
     public User createUser(UserDto userDto) {
         final User user = new User();
         user.setEmail(userDto.getEmail());
@@ -37,7 +36,6 @@ public class UserService {
         user.setLastName(userDto.getLastName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userRepository.save(user);
-
         return user;
     }
 
@@ -62,6 +60,4 @@ public class UserService {
     public User getCurrentUser() {
         return userRepository.findByEmail(getCurrentUserId()).get();
     }
-
-     */
 }
