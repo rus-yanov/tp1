@@ -9,18 +9,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "widgets")
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Widget {
+@Table(name = "widgets")
+public class WidgetEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "name")
+    private String name;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
             mappedBy = "widgets")
-    private List<Page> pages;
-
+    private List<TopicEntity> topics;
 }

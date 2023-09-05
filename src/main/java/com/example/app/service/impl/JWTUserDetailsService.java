@@ -1,6 +1,6 @@
 package com.example.app.service.impl;
 
-import com.example.app.model.User;
+import com.example.app.model.UserEntity;
 import com.example.app.repository.UserRepository;
 import com.example.app.security.SecurityConfig;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class JWTUserDetailsService  implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Not found user with 'username': " + username));
     }
 
-    private UserDetails buildSpringUser(final User user) {
+    private UserDetails buildSpringUser(final UserEntity user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),

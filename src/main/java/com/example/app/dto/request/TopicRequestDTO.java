@@ -1,6 +1,5 @@
-package com.example.app.dto.response;
+package com.example.app.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,15 +10,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class PageResponseDTO {
-
-    private Long id;
+public class TopicRequestDTO {
 
     private String name;
 
-    private String description;
-
-    private Long authorId;
+    private String content;
 
     private Set<Long> categoryIds;
 

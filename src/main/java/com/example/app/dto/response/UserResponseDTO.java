@@ -1,8 +1,5 @@
 package com.example.app.dto.response;
 
-import com.example.app.model.Role;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -20,5 +17,4 @@ public class UserResponseDTO {
 
     private String lastName;
 
-    private Role role;
 }

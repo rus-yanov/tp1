@@ -1,4 +1,4 @@
-package com.example.app.dto.request;
+package com.example.app.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRequestDTO {
+public class LoginResponse {
+
+    private Long id;
+
     private String firstName;
 
     private String lastName;
@@ -16,8 +19,4 @@ public class LoginRequestDTO {
 
     private String password;
 
-    public LoginRequestDTO(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 }

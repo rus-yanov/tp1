@@ -1,6 +1,6 @@
 package com.example.app.security;
 
-import com.example.app.dto.request.LoginRequestDTO;
+import com.example.app.dto.response.LoginResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,7 +35,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(final HttpServletRequest request,
                                                 final HttpServletResponse response) throws AuthenticationException {
-        final LoginRequestDTO loginData = getLoginData(request);
+        final LoginResponse loginData = getLoginData(request);
         final var authRequest = new UsernamePasswordAuthenticationToken(
                 loginData.getEmail(),
                 loginData.getPassword()
@@ -44,12 +44,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return getAuthenticationManager().authenticate(authRequest);
     }
 
-    private LoginRequestDTO getLoginData(final HttpServletRequest request) throws AuthenticationException {
+    private LoginResponse getLoginData(final HttpServletRequest request) throws AuthenticationException {
         try {
             final String json = request.getReader()
                     .lines()
                     .collect(Collectors.joining());
-            return MAPPER.readValue(json, LoginRequestDTO.class);
+            return MAPPER.readValue(json, LoginResponse.class);
         } catch (IOException e) {
             throw new BadCredentialsException("Can't extract login data from request");
         }

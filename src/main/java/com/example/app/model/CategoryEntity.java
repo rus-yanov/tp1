@@ -10,21 +10,21 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "role")
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @RequiredArgsConstructor
-public class Role {
+@Table(name = "categories")
+public class CategoryEntity extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
+    @NotBlank
+    @Column(name = "name",
+            unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            mappedBy = "users")
     @JsonIgnore
-    private Set<User> users;
+    @ManyToMany(fetch = FetchType.LAZY,
+            mappedBy = "categories")
+
+    private Set<TopicEntity> topics;
+
 }
