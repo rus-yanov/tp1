@@ -1,9 +1,9 @@
 package com.example.app.controller;
 
-import com.example.app.repository.UserRepository;
-import com.example.app.service.UserService;
-import com.example.app.dto.UserDto;
-import com.example.app.model.User;
+import com.example.app.dto.request.UserCreationDto;
+import com.example.app.service.impl.UserServiceImpl;
+import com.example.app.dto.request.UserRequestDTO;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +18,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import lombok.AllArgsConstructor;
 import jakarta.validation.Valid;
 
-
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.CREATED;
-
 @AllArgsConstructor
 @RestController
 @RequestMapping("${base-url}" + UserController.USER_CONTROLLER_PATH)
@@ -33,38 +28,29 @@ public class UserController {
     private static final String ONLY_OWNER_BY_ID = """
             @userRepository.findById(#id).get().getEmail() == authentication.getName()
         """;
-
-    private final UserService userService;
-    private final UserRepository userRepository;
+    private final UserServiceImpl userService;
 
     @PostMapping
-    @ResponseStatus(CREATED)
-    public User createUser(@Valid @RequestBody UserDto userDto) {
-        return userService.createUser(userDto);
-    }
-
-    @GetMapping
-    public List<User> getAll() {
-        return userRepository.findAll()
-                .stream()
-                .toList();
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@Valid @RequestBody UserCreationDto userDto) {
+        userService.createUser(userDto);
     }
 
     @GetMapping(ID)
-    public User getUserById(@PathVariable final Long id) {
-        return userRepository.findById(id).get();
+    public UserRequestDTO getUserById(@PathVariable final Long id) {
+        return userService.getUserById(id);
     }
 
     @PutMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
-    public User updateUser(@PathVariable final long id,
-                           @RequestBody @Valid final UserDto dto)  {
-        return userService.updateUser(id, dto);
+    public void updateUser(@PathVariable final long id,
+                           @RequestBody @Valid final UserCreationDto dto)  {
+        userService.updateUser(id, dto);
     }
 
     @DeleteMapping(ID)
     @PreAuthorize(ONLY_OWNER_BY_ID)
     public void deleteUser(@PathVariable final long id) {
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
     }
 }

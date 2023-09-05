@@ -1,14 +1,13 @@
-package com.example.app.service;
+package com.example.app.service.impl;
 
 import com.example.app.model.User;
 import com.example.app.repository.UserRepository;
+import com.example.app.security.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import static com.example.app.security.SecurityConfig.DEFAULT_AUTHORITIES;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +26,7 @@ public class JWTUserDetailsService  implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                DEFAULT_AUTHORITIES
+                SecurityConfig.DEFAULT_AUTHORITIES
         );
     }
 }

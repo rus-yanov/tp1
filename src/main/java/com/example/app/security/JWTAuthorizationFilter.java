@@ -1,5 +1,6 @@
 package com.example.app.security;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -12,8 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.example.app.security.SecurityConfig.DEFAULT_AUTHORITIES;
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
 
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
@@ -39,7 +38,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
                                     final HttpServletResponse response,
                                     final FilterChain filterChain) throws ServletException, IOException {
 
-        final var authToken = Optional.ofNullable(request.getHeader(AUTHORIZATION))
+        final var authToken = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION))
                 .map(header -> header.replaceFirst("^" + BEARER, ""))
                 .map(String::trim)
                 .map(jwtHelper::verify)
@@ -57,7 +56,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         return new UsernamePasswordAuthenticationToken(
                 username,
                 null,
-                DEFAULT_AUTHORITIES
+                SecurityConfig.DEFAULT_AUTHORITIES
         );
     }
 }

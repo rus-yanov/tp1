@@ -8,13 +8,13 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
-@Table(name = "categories")
 @Getter
 @Setter
-public class Category {
+@Table(name = "role")
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,8 @@ public class Category {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "users")
     @JsonIgnore
-    private Set<Page> pages;
-
+    private Set<User> users;
 }

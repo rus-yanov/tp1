@@ -1,5 +1,6 @@
-package com.example.app.dto;
+package com.example.app.dto.request;
 
+import com.example.app.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Data;
@@ -14,21 +15,13 @@ import jakarta.validation.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class UserRequestDTO {
 
-//    private long id;
-
-    @NotBlank (message = "Email is mandatory")
-    @Email
     private String email;
 
-    @NotBlank (message = "Firstname is mandatory")
+    private Role role;
+
     private String firstName;
 
-    @NotBlank (message = "Lastname is mandatory")
     private String lastName;
-
-    @NotBlank (message = "Password is mandatory")
-    private String password;
-
 }

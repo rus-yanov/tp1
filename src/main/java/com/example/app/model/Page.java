@@ -1,28 +1,14 @@
 package com.example.app.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
-import static jakarta.persistence.TemporalType.TIMESTAMP;
-import static org.hibernate.annotations.FetchMode.JOIN;
 
 @Entity
 @Getter
@@ -30,30 +16,32 @@ import static org.hibernate.annotations.FetchMode.JOIN;
 @Table(name = "pages")
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Builder
 
 public class Page {
+
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     private User author;
 
-    @NotBlank (message = "Name is mandatory")
     private String name;
 
     private String description;
 
     @CreationTimestamp
-    @Temporal(TIMESTAMP)
-    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
 
     @ManyToMany
-    @Fetch(JOIN)
+    @Fetch(FetchMode.JOIN)
     private Set<Category> categories;
 
     @ManyToMany
-    @Fetch(JOIN)
+    @Fetch(FetchMode.JOIN)
     private Set<Widget> widgets;
+
 }
