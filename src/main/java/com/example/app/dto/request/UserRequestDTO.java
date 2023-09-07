@@ -15,7 +15,7 @@ public class UserRequestDTO {
 
     private String email;
 
-    private byte[] password;
+    private String password;
 
     private String firstName;
 

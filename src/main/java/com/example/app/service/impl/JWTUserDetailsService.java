@@ -1,4 +1,4 @@
-package com.example.app.service.impl;
+/*package com.example.app.service.impl;
 
 import com.example.app.model.UserEntity;
 import com.example.app.repository.UserRepository;
@@ -30,3 +30,5 @@ public class JWTUserDetailsService  implements UserDetailsService {
         );
     }
 }
+
+ */

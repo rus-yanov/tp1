@@ -4,15 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "users")
 public class UserEntity extends AbstractEntity {
 
@@ -29,7 +30,7 @@ public class UserEntity extends AbstractEntity {
 
     @JsonIgnore
     @Column(name = "password")
-    private byte[] password;
+    private String password;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
