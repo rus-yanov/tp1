@@ -23,7 +23,6 @@ import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import static com.example.app.controller.UserController.USER_CONTROLLER_PATH;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
@@ -33,6 +32,7 @@ import static org.springframework.http.HttpMethod.POST;
 public class SecurityConfig {
 
     public static final String LOGIN = "/login";
+    public static final String USER = "/user";
     public static final List<GrantedAuthority> DEFAULT_AUTHORITIES = List.of(new SimpleGrantedAuthority("USER"));
 
     //Note: Сейчас разрешены:
@@ -56,8 +56,8 @@ public class SecurityConfig {
         this.loginRequest = new AntPathRequestMatcher(baseUrl + LOGIN, POST.toString());
         this.publicUrls = new OrRequestMatcher(
                 loginRequest,
-                new AntPathRequestMatcher(baseUrl + USER_CONTROLLER_PATH, POST.toString()),
-                new AntPathRequestMatcher(baseUrl + USER_CONTROLLER_PATH, GET.toString()),
+                new AntPathRequestMatcher(baseUrl + USER, POST.toString()),
+                new AntPathRequestMatcher(baseUrl + USER, GET.toString()),
                 new NegatedRequestMatcher(new AntPathRequestMatcher(baseUrl + "/**"))
         );
     }

@@ -5,25 +5,31 @@ import com.example.app.dto.response.PageOfListResponse;
 import com.example.app.dto.response.TopicResponseDTO;
 import com.example.app.model.TopicEntity;
 import com.example.app.service.TopicService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 
-import static com.example.app.controller.TopicController.TOPIC_CONTROLLER_PATH;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${base-url}" + TOPIC_CONTROLLER_PATH)
+@RequestMapping("${base-url}/topics/{id}")
 public class TopicController {
-
-    public static final String TOPIC_CONTROLLER_PATH = "/topics";
-    public static final String ID = "/{id}";
 
     private final TopicService topicService;
 
@@ -38,8 +44,8 @@ public class TopicController {
     @Operation(summary = "Get topic by id")
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = TopicEntity.class))))
-    @GetMapping(ID)
-    public TopicResponseDTO getById(@PathVariable("id") Long id) {
+    @GetMapping("/{id}")
+    public TopicResponseDTO getById(@PathVariable Long id) {
         return topicService.getById(id);
     }
 
@@ -58,7 +64,7 @@ public class TopicController {
             @ApiResponse(responseCode = "200", description = "Topic updated"),
             @ApiResponse(responseCode = "404", description = "Topic with that id not found")
     })
-    @PutMapping(ID)
+    @PutMapping("/{id}")
     public TopicResponseDTO update(@PathVariable Long id,
                                       @Valid @RequestBody TopicRequestDTO topicDTO) {
         return topicService.update(topicDTO, id);
@@ -69,7 +75,7 @@ public class TopicController {
             @ApiResponse(responseCode = "200", description = "Topic deleted"),
             @ApiResponse(responseCode = "404", description = "Topic with that id not found")
     })
-    @DeleteMapping(ID)
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         topicService.delete(id);
     }

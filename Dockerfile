@@ -9,5 +9,5 @@ RUN ./mvnw clean install
 FROM openjdk:17.0.1-jdk-slim
 WORKDIR /opt/app
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
-EXPOSE 8080
+EXPOSE 8000
 ENTRYPOINT ["java", "-jar", "/opt/app/*.jar"]

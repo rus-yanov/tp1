@@ -2,19 +2,17 @@ version: '3.3'
 
 services:
 
-  application:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: application
-    networks:
-      - cloud
     ports:
       - 8000:8000
     depends_on:
       - database
     environment:
-      - "SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/project"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/notion"
       - "SPRING_DATASOURCE_USERNAME=postgres"
       - "SPRING_DATASOURCE_PASSWORD=qwerty007"
     logging:
@@ -27,19 +25,10 @@ services:
     image:
       postgres
     container_name: database
-    networks:
-      - cloud
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
-      POSTGRES_DB: project
+      POSTGRES_DB: notion
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: qwerty007
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
-networks:
-  cloud:
-
-volumes:
-  pgdata:
