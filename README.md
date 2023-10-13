@@ -2,4 +2,5 @@
 
 ### Диаграмма сущностей
 
-![Uml Diagram](https://github.com/rus-yanov/tp1/assets/113507393/bc095a50-8554-4404-b335-37386ac72336)
+![Uml Diagram](https://github.com/rus-yanov/tp1/assets/113507393/66b10978-3c94-4345-82d6-eacb9b429023)
+
