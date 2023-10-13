@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${base-url}/widgets/{id}")
+@RequestMapping("${base-url}/widgets/")
 public class WidgetController {
 
     private final WidgetService widgetService;
@@ -45,7 +46,7 @@ public class WidgetController {
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = WidgetEntity.class))))
     @GetMapping("/{id}")
-    public WidgetResponseDTO getById(@PathVariable Long id) {
+    public WidgetResponseDTO getById(@PathVariable UUID id) {
         return widgetService.getById(id);
     }
 
@@ -65,7 +66,7 @@ public class WidgetController {
             @ApiResponse(responseCode = "404", description = "Widget with that id not found")
     })
     @PutMapping("/{id}")
-    public WidgetResponseDTO update(@PathVariable Long id,
+    public WidgetResponseDTO update(@PathVariable UUID id,
                                    @Valid @RequestBody WidgetRequestDTO widgetDTO) {
         return widgetService.update(widgetDTO, id);
     }
@@ -76,7 +77,7 @@ public class WidgetController {
             @ApiResponse(responseCode = "404", description = "Widget with that id not found")
     })
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         widgetService.delete(id);
     }
 }

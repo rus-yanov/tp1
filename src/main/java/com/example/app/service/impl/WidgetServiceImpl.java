@@ -8,6 +8,8 @@ import com.example.app.repository.WidgetRepository;
 import com.example.app.service.WidgetService;
 import com.example.app.utils.exception.ApplicationNotFoundException;
 import com.example.app.utils.mapper.WidgetMapper;
+
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,13 +29,13 @@ public class WidgetServiceImpl implements WidgetService {
     public WidgetResponseDTO create(WidgetRequestDTO widgetRequest) {
 
         log.info("#create: Create widget, widget name - {}", widgetRequest.getName());
-        WidgetEntity newWidget = widgetMapper.toWidgetEntity(widgetRequest);
-        widgetRepository.save(newWidget);
+        WidgetEntity newWidget = widgetRepository.save(widgetMapper
+                .toWidgetEntity(widgetRequest));
         return widgetMapper.toWidgetResponse(newWidget);
     }
 
     @Override
-    public WidgetResponseDTO getById(Long id) {
+    public WidgetResponseDTO getById(UUID id) {
 
         log.info("#getById: Get widget by id, id - {}", id);
         WidgetEntity widget = widgetRepository
@@ -57,7 +59,7 @@ public class WidgetServiceImpl implements WidgetService {
     }
 
     @Override
-    public WidgetResponseDTO update(WidgetRequestDTO widgetRequest, Long id) {
+    public WidgetResponseDTO update(WidgetRequestDTO widgetRequest, UUID id) {
 
         log.info("#update: Update widget, id - {}", id);
         WidgetEntity widgetToUpdate = widgetRepository
@@ -70,7 +72,7 @@ public class WidgetServiceImpl implements WidgetService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
 
         log.info("#delete: Delete widget by id, id - {}", id);
         try {

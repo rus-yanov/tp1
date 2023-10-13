@@ -13,8 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,19 +27,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${base-url}/users/{id}")
+@RequestMapping("${base-url}/users/")
 public class UserController {
 
     private final UserService userService;
-    private static final String ONLY_OWNER_BY_ID = """
-            @userRepository.findById(#id).get().getEmail() == authentication.getName()
-        """;
+//    private static final String ONLY_OWNER_BY_ID = """
+//            @userRepository.findById(#id).get().getEmail() == authentication.getName()
+//        """;
 
     @Operation(summary = "Create new user")
     @ApiResponse(responseCode = "201", description = "User created")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserResponseDTO create(@Valid @RequestBody UserRequestDTO userDTO) {
+    public UserResponseDTO registrate(@Valid @RequestBody UserRequestDTO userDTO) {
         return userService.create(userDTO);
     }
 
@@ -47,7 +47,7 @@ public class UserController {
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = UserEntity.class))))
     @GetMapping("/{id}")
-    public UserResponseDTO getById(@PathVariable Long id) {
+    public UserResponseDTO getById(@PathVariable UUID id) {
         return userService.getById(id);
     }
 
@@ -57,8 +57,8 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
     @PutMapping("/{id}")
-    @PreAuthorize(ONLY_OWNER_BY_ID)
-    public UserResponseDTO update(@PathVariable Long id,
+//    @PreAuthorize(ONLY_OWNER_BY_ID)
+    public UserResponseDTO update(@PathVariable UUID id,
                                       @Valid @RequestBody UserRequestDTO userDTO) {
         return userService.update(userDTO, id);
     }
@@ -68,9 +68,10 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "User deleted"),
             @ApiResponse(responseCode = "404", description = "User with that id not found")
     })
+
     @DeleteMapping("/{id}")
-    @PreAuthorize(ONLY_OWNER_BY_ID)
-    public void delete(@PathVariable Long id) {
+//    @PreAuthorize(ONLY_OWNER_BY_ID)
+    public void delete(@PathVariable UUID id) {
         userService.delete(id);
     }
 }

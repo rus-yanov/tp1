@@ -1,12 +1,21 @@
 package com.example.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,10 +31,12 @@ public class CategoryEntity extends AbstractEntity {
             unique = true)
     private String name;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY,
-            mappedBy = "categories")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserEntity user;
 
-    private Set<TopicEntity> topics;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy = "categories")
+    private List<TopicEntity> topics;
 
 }

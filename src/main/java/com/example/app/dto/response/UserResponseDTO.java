@@ -1,5 +1,6 @@
 package com.example.app.dto.response;
 
+import java.util.UUID;
 import lombok.*;
 
 @Getter
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserResponseDTO {
 
-    private Long id;
+    private UUID id;
 
     private String email;
 

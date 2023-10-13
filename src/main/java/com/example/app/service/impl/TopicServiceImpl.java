@@ -3,12 +3,13 @@ package com.example.app.service.impl;
 import com.example.app.dto.request.TopicRequestDTO;
 import com.example.app.dto.response.PageOfListResponse;
 import com.example.app.dto.response.TopicResponseDTO;
-import com.example.app.model.CategoryEntity;
 import com.example.app.model.TopicEntity;
 import com.example.app.repository.TopicRepository;
 import com.example.app.service.TopicService;
 import com.example.app.utils.exception.ApplicationNotFoundException;
 import com.example.app.utils.mapper.TopicMapper;
+
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,13 +29,13 @@ public class TopicServiceImpl implements TopicService {
     public TopicResponseDTO create(TopicRequestDTO topicRequest) {
 
         log.info("#create: Create topic, topic name - {}", topicRequest.getName());
-        TopicEntity newTopic = topicMapper.toTopicEntity(topicRequest);
-        topicRepository.save(newTopic);
+        TopicEntity newTopic =  topicRepository.save(topicMapper
+                .toTopicEntity(topicRequest));
         return topicMapper.toTopicResponse(newTopic);
     }
 
     @Override
-    public TopicResponseDTO getById(Long id) {
+    public TopicResponseDTO getById(UUID id) {
 
         log.info("#getById: Get topic by id, id - {}", id);
         TopicEntity topic = topicRepository
@@ -58,7 +59,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public TopicResponseDTO update(TopicRequestDTO topicRequest, Long id) {
+    public TopicResponseDTO update(TopicRequestDTO topicRequest, UUID id) {
 
         log.info("#update: Update topic, id - {}", id);
         TopicEntity topicToUpdate = topicRepository
@@ -71,7 +72,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
 
         log.info("#delete: Delete topic by id, id - {}", id);
         try {

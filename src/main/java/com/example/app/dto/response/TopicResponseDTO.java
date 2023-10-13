@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +13,7 @@ import java.util.Set;
 
 public class TopicResponseDTO {
 
-    private Long id;
+    private UUID id;
 
     private String name;
 

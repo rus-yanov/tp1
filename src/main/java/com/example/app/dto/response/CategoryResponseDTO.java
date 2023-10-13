@@ -1,6 +1,8 @@
 package com.example.app.dto.response;
 
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 public class CategoryResponseDTO {
 
-    private Long id;
+    private UUID id;
 
     private String name;
 }

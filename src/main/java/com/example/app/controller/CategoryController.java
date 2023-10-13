@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${base-url}/categories/{id}")
+@RequestMapping("${base-url}/categories/")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -45,7 +46,7 @@ public class CategoryController {
     @ApiResponses(@ApiResponse(responseCode = "200", content =
     @Content(schema = @Schema(implementation = CategoryEntity.class))))
     @GetMapping("/{id}")
-    public CategoryResponseDTO getById(@PathVariable Long id) {
+    public CategoryResponseDTO getById(@PathVariable UUID id) {
         return categoryService.getById(id);
     }
 
@@ -64,7 +65,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "404", description = "Category with that id not found")
     })
     @PutMapping("/{id}")
-    public CategoryResponseDTO update(@PathVariable Long id,
+    public CategoryResponseDTO update(@PathVariable UUID id,
                                   @Valid @RequestBody CategoryRequestDTO categoryDTO) {
         return categoryService.update(categoryDTO, id);
     }
@@ -75,7 +76,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "404", description = "Category with that id not found")
     })
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         categoryService.delete(id);
     }
 }

@@ -8,6 +8,8 @@ import com.example.app.repository.CategoryRepository;
 import com.example.app.service.CategoryService;
 import com.example.app.utils.exception.ApplicationNotFoundException;
 import com.example.app.utils.mapper.CategoryMapper;
+
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,13 +29,13 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponseDTO create(CategoryRequestDTO categoryRequest) {
 
         log.info("#create: Create category, category name - {}", categoryRequest.getName());
-        CategoryEntity newCategory = categoryMapper.toCategoryEntity(categoryRequest);
-        categoryRepository.save(newCategory);
+        CategoryEntity newCategory = categoryRepository.save(categoryMapper
+                        .toCategoryEntity(categoryRequest));
         return categoryMapper.toCategoryResponse(newCategory);
     }
 
     @Override
-    public CategoryResponseDTO getById(Long id) {
+    public CategoryResponseDTO getById(UUID id) {
 
         log.info("#getById: Get category by id, id - {}", id);
         CategoryEntity category = categoryRepository
@@ -57,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponseDTO update(CategoryRequestDTO categoryRequest, Long id) {
+    public CategoryResponseDTO update(CategoryRequestDTO categoryRequest, UUID id) {
 
         log.info("#update: Update category, id - {}", id);
         CategoryEntity categoryToUpdate = categoryRepository
@@ -70,7 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(UUID id) {
 
         log.info("#delete: Delete category by id, id - {}", id);
         try {
