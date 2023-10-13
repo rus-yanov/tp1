@@ -1,10 +1,8 @@
-package com.example.app.dto;
+package com.example.app.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Set;
 
@@ -12,11 +10,13 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class PageDto {
-    @NotBlank (message = "Name is mandatory")
+public class TopicRequestDTO {
+
     private String name;
-    private String description;
-    private Long authorId;
+
+    private String content;
+
     private Set<Long> categoryIds;
+
     private Set<Long> widgetIds;
 }

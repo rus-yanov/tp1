@@ -1,4 +1,4 @@
-package com.example.app.dto;
+package com.example.app.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class CategoryDto {
-    @NotBlank (message = "Name is mandatory")
+public class CategoryRequestDTO {
+
     private String name;
 }

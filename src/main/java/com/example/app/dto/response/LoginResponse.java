@@ -1,5 +1,6 @@
-package com.example.app.dto;
+package com.example.app.dto.response;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class LoginResponse {
+
+    private UUID id;
+
     private String firstName;
 
     private String lastName;
@@ -16,8 +20,4 @@ public class LoginDto {
 
     private String password;
 
-    public LoginDto(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
 }
